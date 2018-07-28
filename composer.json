@@ -1,0 +1,31 @@
+{
+    "name": "potelo/nfse-ssa",
+    "description": "Emiss\u0000o de notas fiscais de servi\u0000o em Salvador-BA",
+    "type": "library",
+    "require": {
+        "robrichards/xmlseclibs": "^3.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gabriel Peixoto",
+            "email": "gabriel@potelo.com.br"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Potelo\\NfseSsa\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Potelo\\NfseSsa\\NfseSsaServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev"
+}
