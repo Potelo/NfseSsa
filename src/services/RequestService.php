@@ -25,6 +25,11 @@ class RequestService
      */
     private $urlBase;
 
+    /**
+     * @var array
+     */
+    private $soapOptions;
+
 
     public function __construct()
     {
@@ -33,17 +38,6 @@ class RequestService
         $this->certificatePrivate = config('nfse-ssa.certificado_privado_path');
 
         $this->certificatePrivatePassword = config('nfse-ssa.certificado_privado_senha');
-
-    }
-
-
-    /**
-     * @param $xml
-     * @return Response
-     */
-    public function enviarLoteRps($xml)
-    {
-        $wsdl = $this->urlBase . '/rps/ENVIOLOTERPS/EnvioLoteRPS.svc?wsdl';
 
         $context = stream_context_create([
             'ssl' => [
@@ -54,31 +48,34 @@ class RequestService
             ]
         ]);
 
-        $options = array(
+        $this->soapOptions = [
             'keep_alive' => true,
             'trace' => true,
             'local_cert' => $this->certificatePrivate,
             'passphrase' => $this->certificatePrivatePassword,
             'cache_wsdl' => WSDL_CACHE_NONE,
             'stream_context' => $context
-        );
+        ];
 
+    }
 
-        $client = new MySoapClient($wsdl, $options);
+    /**
+     * @param $wsdlSuffix
+     * @param $xml
+     * @param $method
+     * @param $return
+     * @return Response
+     */
+    private function consult($wsdlSuffix, $xml, $method, $return){
+        $wsdl = $this->urlBase . $wsdlSuffix;
 
-        $finalXml = '
-            <EnviarLoteRPS xmlns="http://tempuri.org/">
-                <loteXML>
-                  <![CDATA[' . $xml . ']]>
-                </loteXML>
-            </EnviarLoteRPS>
-        ';
+        $client = new MySoapClient($wsdl, $this->soapOptions);
 
-        $params = new \SoapVar($finalXml, XSD_ANYXML);
+        $params = new \SoapVar($xml, XSD_ANYXML);
 
-        $result = $client->EnviarLoteRPS($params);
+        $result = call_user_func_array([$client, $method], [$params]);
 
-        $xmlObj = simplexml_load_string($result->EnviarLoteRPSResult);
+        $xmlObj = simplexml_load_string($result->{$return});
 
         $response = new Response();
 
@@ -88,9 +85,11 @@ class RequestService
             foreach ($xmlObj->ListaMensagemRetorno->MensagemRetorno as $mensagem) {
                 $error = new Error();
 
-                $error->codigo = $mensagem->Codigo;
-                $error->mensagem = $mensagem->Mensagem;
-                $error->correcao = $mensagem->Correcao;
+                $arr = get_object_vars($mensagem);
+
+                $error->codigo = $arr['Codigo'];
+                $error->mensagem = $arr['Mensagem'];
+                $error->correcao = $arr['Correcao'];
                 $response->addError($error);
             }
 
@@ -104,6 +103,61 @@ class RequestService
 
             $response->setData($data);
         }
+
+        return $response;
+    }
+
+    /**
+     * @param $xml
+     * @param $mainTagName
+     * @return string
+     */
+    private function generateXmlBody($xml, $mainTagName)
+    {
+        return "
+            <$mainTagName xmlns='http://tempuri.org/'>
+                <loteXML>
+                  <![CDATA[$xml]]>
+                </loteXML>
+            </$mainTagName>
+        ";
+    }
+
+
+    /**
+     * @param $xml
+     * @return Response
+     */
+    public function enviarLoteRps($xml)
+    {
+        $wsdlSuffix = '/rps/ENVIOLOTERPS/EnvioLoteRPS.svc?wsdl';
+
+        $finalXml = $this->generateXmlBody($xml, 'EnviarLoteRPS');
+
+        $response = $this->consult(
+            $wsdlSuffix,
+            $finalXml,
+            'EnviarLoteRPS',
+            'EnviarLoteRPSResult');
+
+        return $response;
+    }
+
+    /**
+     * @param $xml
+     * @return Response
+     */
+    public function consultarSituacaoLoteRps($xml)
+    {
+        $wsdlSuffix = '/rps/CONSULTASITUACAOLOTERPS/ConsultaSituacaoLoteRPS.svc?wsdl';
+
+        $finalXml = $this->generateXmlBody($xml, 'ConsultarSituacaoLoteRPS');
+
+        $response = $this->consult(
+            $wsdlSuffix,
+            $finalXml,
+            'ConsultarSituacaoLoteRPS',
+            'ConsultarSituacaoLoteRPSResult');
 
         return $response;
     }

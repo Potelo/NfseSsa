@@ -7,19 +7,12 @@ use Potelo\NfseSsa\Services\SignatureService;
 
 class NfseSsa
 {
-    /**
-     * @var string
-     */
-    private $urlBase;
-
     private $signatureService;
 
     private $requestService;
 
     public function __construct(SignatureService $signatureService, RequestService $requestService)
     {
-        $this->urlBase = 'https://notahml.salvador.ba.gov.br';
-
         $this->signatureService = $signatureService;
 
         $this->requestService = $requestService;
@@ -39,6 +32,22 @@ class NfseSsa
         $signedXml = $this->signatureService->signXml($xml, true, ['Rps']);
 
         $result = $this->requestService->enviarLoteRps($signedXml);
+
+        return $result;
+    }
+
+    /**
+     * @param $dados
+     *
+     * @return
+     *
+     * @throws \Throwable
+     */
+    public function consultarSituacaoLoteRps($dados)
+    {
+        $xml = xml_view('ConsultarSituacaoLoteRPS', $dados);
+
+        $result = $this->requestService->consultarSituacaoLoteRps($xml);
 
         return $result;
     }

@@ -9,6 +9,7 @@ namespace Potelo\NfseSsa;
  * ao padrão Ruindows utilizado
  */
 class MySoapClient extends \SoapClient {
+
     public $soapRequest;
     public function __doRequest($request, $location, $action, $version, $one_way = 0) {
 
