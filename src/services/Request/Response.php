@@ -16,6 +16,11 @@ class Response
     private $errors = [];
 
     /**
+     * @var array
+     */
+    private $data = [];
+
+    /**
      * @return bool
      */
     public function getStatus()
@@ -39,8 +44,25 @@ class Response
         return $this->errors;
     }
 
+    /**
+     * @param Error $error
+     */
     public function addError(Error $error)
     {
         $this->errors[] = $error;
     }
+
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param $data
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
+    }
+
 }

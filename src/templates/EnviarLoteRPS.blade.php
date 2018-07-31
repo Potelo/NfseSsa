@@ -1,65 +1,71 @@
 <?php echo '<?xml version="1.0" encoding="utf-8"?>'; ?>
 <EnviarLoteRpsEnvio xmlns="http://www.abrasf.org.br/ABRASF/arquivos/nfse.xsd">
-    <LoteRps id="001">
-        <NumeroLote>1</NumeroLote>
-        <Cnpj>10880435000121</Cnpj>
-        <InscricaoMunicipal>51559500163</InscricaoMunicipal>
+    <LoteRps id="{{ array_get($dados, 'id') }}">
+
+        {!! array_xml_get($dados, 'numero_lote') !!}
+
+        {!! array_xml_get($dados, 'cnpj') !!}
+
+        {!! array_xml_get($dados, 'inscricao_municipal') !!}
+
         <QuantidadeRps>1</QuantidadeRps>
         <ListaRps>
             <Rps>
-                <InfRps id="rpsId221">
+                <InfRps id="{{ array_get($dados['rps'], 'id') }}">
                     <IdentificacaoRps>
-                        <Numero>221</Numero>
-                        <Serie>1</Serie>
-                        <Tipo>1</Tipo>
+                        @foreach($dados['rps']['identificacao'] as $k => $identificacao)
+                            {!! array_xml_get($dados['rps']['identificacao'], $k) !!}
+                        @endforeach
                     </IdentificacaoRps>
-                    <DataEmissao>2017-07-25T16:45:14</DataEmissao>
-                    <NaturezaOperacao>1</NaturezaOperacao>
-                    <RegimeEspecialTributacao>1</RegimeEspecialTributacao>
-                    <OptanteSimplesNacional>1</OptanteSimplesNacional>
-                    <IncentivadorCultural>2</IncentivadorCultural>
-                    <Status>1</Status>
+
+                    {!! array_xml_get($dados['rps'], 'data_emissao') !!}
+
+                    {!! array_xml_get($dados['rps'], 'natureza_operacao') !!}
+
+                    {!! array_xml_get($dados['rps'], 'regime_especial_tributacao') !!}
+
+                    {!! array_xml_get($dados['rps'], 'optante_simples_nacional') !!}
+
+                    {!! array_xml_get($dados['rps'], 'incentivador_cultural') !!}
+
+                    {!! array_xml_get($dados['rps'], 'status') !!}
+
                     <Servico>
                         <Valores>
-                            <ValorServicos>340.26</ValorServicos>
-                            <ValorDeducoes>0</ValorDeducoes>
-                            <ValorPis>0</ValorPis>
-                            <ValorCofins>0</ValorCofins>
-                            <ValorIr>0</ValorIr>
-                            <ValorCsll>0</ValorCsll>
-                            <IssRetido>1</IssRetido>
-                            <ValorIss>6.81</ValorIss>
-                            <ValorIssRetido>6.81</ValorIssRetido>
-                            <OutrasRetencoes>0</OutrasRetencoes>
-                            <BaseCalculo>340.26</BaseCalculo>
-                            <Aliquota>0.02</Aliquota>
-                            <ValorLiquidoNfse>333.45</ValorLiquidoNfse>
-                            <DescontoIncondicionado>0</DescontoIncondicionado>
-                            <DescontoCondicionado>0</DescontoCondicionado>
+                            @foreach($dados['rps']['servico']['valores'] as $k => $valor)
+                                {!! array_xml_get($dados['rps']['servico']['valores'], $k) !!}
+                            @endforeach
                         </Valores>
-                        <ItemListaServico>1001</ItemListaServico>
-                        <CodigoCnae>6622300</CodigoCnae>
-                        <Discriminacao>vendas de seguro</Discriminacao>
-                        <CodigoMunicipio>2927408</CodigoMunicipio>
+
+                        {!! array_xml_get($dados['rps']['servico'], 'item_lista_servico') !!}
+
+                        {!! array_xml_get($dados['rps']['servico'], 'codigo_cnae') !!}
+
+                        {!! array_xml_get($dados['rps']['servico'], 'discriminacao') !!}
+
+                        {!! array_xml_get($dados['rps']['servico'], 'codigo_municipio') !!}
+
                     </Servico>
                     <Prestador>
-                        <Cnpj>10880435000121</Cnpj>
-                        <InscricaoMunicipal>51559500163</InscricaoMunicipal>
+                        {!! array_xml_get($dados['rps']['prestador'], 'cnpj') !!}
+
+                        {!! array_xml_get($dados['rps']['prestador'], 'inscricao_municipal') !!}
                     </Prestador>
                     <Tomador>
                         <IdentificacaoTomador>
                             <CpfCnpj>
-                                <Cnpj>48109110000899</Cnpj>
+                                {!! array_xml_get($dados['rps']['tomador']['identificacao_tomador']['cpf_cnpj'], 'cnpj') !!}
+
+                                {!! array_xml_get($dados['rps']['tomador']['identificacao_tomador']['cpf_cnpj'], 'cpf') !!}
                             </CpfCnpj>
                         </IdentificacaoTomador>
-                        <RazaoSocial>RAZAO SOCIAL DO CLIENTE S/A</RazaoSocial>
+
+                        {!! array_xml_get($dados['rps']['tomador'], 'razao_social') !!}
+
                         <Endereco>
-                            <Endereco>R MANOEL DIAS DA SILVA</Endereco>
-                            <Numero>999</Numero>
-                            <Bairro>PITUBA</Bairro>
-                            <CodigoMunicipio>2927408</CodigoMunicipio>
-                            <Uf>BA</Uf>
-                            <Cep>41000000</Cep>
+                            @foreach($dados['rps']['tomador']['endereco'] as $k => $valor)
+                                {!! array_xml_get($dados['rps']['tomador']['endereco'], $k) !!}
+                            @endforeach
                         </Endereco>
                     </Tomador>
                 </InfRps>

@@ -96,6 +96,13 @@ class RequestService
 
         } else {
             $response->setStatus(true);
+
+            $data = [];
+            foreach (get_object_vars($xmlObj) as $key => $value) {
+                $data[snake_case($key)] = $value;
+            }
+
+            $response->setData($data);
         }
 
         return $response;
