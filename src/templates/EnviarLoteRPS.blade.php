@@ -1,7 +1,6 @@
 <?php echo '<?xml version="1.0" encoding="utf-8"?>'; ?>
 <EnviarLoteRpsEnvio xmlns="http://www.abrasf.org.br/ABRASF/arquivos/nfse.xsd">
     <LoteRps id="{{ array_get($dados, 'id') }}">
-
         {!! array_xml_get($dados, 'numero_lote') !!}
 
         {!! array_xml_get($dados, 'cnpj') !!}
@@ -67,6 +66,12 @@
                                 {!! array_xml_get($dados['rps']['tomador']['endereco'], $k) !!}
                             @endforeach
                         </Endereco>
+
+                        <Contato>
+                            {!! array_xml_get($dados['rps']['tomador']['contato'], 'telefone') !!}
+
+                            {!! array_xml_get($dados['rps']['tomador']['contato'], 'email') !!}
+                        </Contato>
                     </Tomador>
                 </InfRps>
             </Rps>

@@ -96,10 +96,8 @@ class RequestService
         } else {
             $response->setStatus(true);
 
-            $data = [];
-            foreach (get_object_vars($xmlObj) as $key => $value) {
-                $data[snake_case($key)] = $value;
-            }
+            $json = json_encode($xmlObj);
+            $data = json_decode($json,TRUE);
 
             $response->setData($data);
         }
@@ -112,13 +110,13 @@ class RequestService
      * @param $mainTagName
      * @return string
      */
-    private function generateXmlBody($xml, $mainTagName)
+    private function generateXmlBody($xml, $mainTagName, $subTagName)
     {
         return "
             <$mainTagName xmlns='http://tempuri.org/'>
-                <loteXML>
+                <$subTagName>
                   <![CDATA[$xml]]>
-                </loteXML>
+                </$subTagName>
             </$mainTagName>
         ";
     }
@@ -132,7 +130,7 @@ class RequestService
     {
         $wsdlSuffix = '/rps/ENVIOLOTERPS/EnvioLoteRPS.svc?wsdl';
 
-        $finalXml = $this->generateXmlBody($xml, 'EnviarLoteRPS');
+        $finalXml = $this->generateXmlBody($xml, 'EnviarLoteRPS', 'loteXML');
 
         $response = $this->consult(
             $wsdlSuffix,
@@ -151,13 +149,51 @@ class RequestService
     {
         $wsdlSuffix = '/rps/CONSULTASITUACAOLOTERPS/ConsultaSituacaoLoteRPS.svc?wsdl';
 
-        $finalXml = $this->generateXmlBody($xml, 'ConsultarSituacaoLoteRPS');
+        $finalXml = $this->generateXmlBody($xml, 'ConsultarSituacaoLoteRPS', 'loteXML');
 
         $response = $this->consult(
             $wsdlSuffix,
             $finalXml,
             'ConsultarSituacaoLoteRPS',
             'ConsultarSituacaoLoteRPSResult');
+
+        return $response;
+    }
+
+    /**
+     * @param $xml
+     * @return Response
+     */
+    public function consultarLoteRps($xml)
+    {
+        $wsdlSuffix = '/rps/CONSULTALOTERPS/ConsultaLoteRPS.svc?wsdl';
+
+        $finalXml = $this->generateXmlBody($xml, 'ConsultarLoteRPS', 'loteXML');
+
+        $response = $this->consult(
+            $wsdlSuffix,
+            $finalXml,
+            'ConsultarLoteRPS',
+            'ConsultarLoteRPSResult');
+
+        return $response;
+    }
+
+    /**
+     * @param $xml
+     * @return Response
+     */
+    public function consultarNfseRps($xml)
+    {
+        $wsdlSuffix = '/rps/CONSULTANFSERPS/ConsultaNfseRPS.svc?wsdl';
+
+        $finalXml = $this->generateXmlBody($xml, 'ConsultarNfseRPS', 'consultaxml');
+
+        $response = $this->consult(
+            $wsdlSuffix,
+            $finalXml,
+            'ConsultarNfseRPS',
+            'ConsultarNfseRPSResult');
 
         return $response;
     }

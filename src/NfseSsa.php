@@ -51,4 +51,36 @@ class NfseSsa
 
         return $result;
     }
+
+    /**
+     * @param $dados
+     *
+     * @return
+     *
+     * @throws \Throwable
+     */
+    public function consultarLoteRps($dados)
+    {
+        $xml = xml_view('ConsultarLoteRPS', $dados);
+
+        $result = $this->requestService->consultarLoteRps($xml);
+
+        return $result;
+    }
+
+    /**
+     * @param $dados
+     *
+     * @return
+     *
+     * @throws \Throwable
+     */
+    public function consultarNfseRps($dados)
+    {
+        $xml = xml_view('ConsultarNfseRPS', $dados);
+
+        $result = $this->requestService->consultarNfseRps($xml);
+
+        return $result;
+    }
 }
