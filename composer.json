@@ -1,6 +1,6 @@
 {
     "name": "potelo/nfse-ssa",
-    "description": "Emiss\u0000o de notas fiscais de servi\u0000o em Salvador-BA",
+    "description": "Emissão de notas fiscais de serviço em Salvador-BA",
     "type": "library",
     "require": {
         "robrichards/xmlseclibs": "^3.0"
