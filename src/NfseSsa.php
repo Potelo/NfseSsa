@@ -83,4 +83,19 @@ class NfseSsa
 
         return $result;
     }
+
+    /**
+     * @param $dados
+     * @return mixed
+     * @throws \Throwable
+     */
+    public function consultarNfse($dados)
+    {
+        $xml = xml_view('ConsultarNfse', $dados);
+
+        $result = $this->requestService->consultarNfse($xml);
+
+        return $result;
+    }
+
 }

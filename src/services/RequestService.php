@@ -189,4 +189,19 @@ class RequestService
 
         return $response;
     }
+
+    public function consultarNfse($xml)
+    {
+        $wsdlSuffix = '/rps/CONSULTANFSE/ConsultaNfse.svc?wsdl';
+
+        $finalXml = $this->generateXmlBody($xml, 'ConsultarNfse', 'consultaxml');
+
+        $response = $this->consult(
+            $wsdlSuffix,
+            $finalXml,
+            'ConsultarNfse',
+            'ConsultarNfseResult');
+
+        return $response;
+    }
 }
