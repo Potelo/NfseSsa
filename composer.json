@@ -1,6 +1,6 @@
 {
     "name": "potelo/nfse-ssa",
-    "description": "Emissão de notas fiscais de serviço em Salvador-BA",
+    "description": "Emissão de Nota Fiscal de Serviços Eletrônica (NFS-e) em Salvador-BA",
     "type": "library",
     "require": {
         "robrichards/xmlseclibs": "^3.0"
