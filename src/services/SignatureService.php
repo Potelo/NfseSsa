@@ -16,18 +16,11 @@ class SignatureService
     /**
      * @var string
      */
-    public $certificatePrivatePassword;
-
-    /**
-     * @var string
-     */
     public $certificatePublic;
 
     public function __construct()
     {
         $this->certificatePrivate = config('nfse-ssa.certificado_privado_path');
-
-        $this->certificatePrivatePassword = config('nfse-ssa.certificado_privado_senha');
 
         $this->certificatePublic = config('nfse-ssa.certificado_publico_path');
     }
@@ -65,9 +58,6 @@ class SignatureService
 
         // Create a new (private) Security key
         $objKey = new XMLSecurityKey(XMLSecurityKey::RSA_SHA1, array('type'=>'private'));
-
-        // If key has a passphrase, set it using
-        $objKey->passphrase = $this->certificatePrivatePassword;
 
         // Load the private key
         $objKey->loadKey($this->certificatePrivate, TRUE);

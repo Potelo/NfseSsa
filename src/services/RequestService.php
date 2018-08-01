@@ -18,11 +18,6 @@ class RequestService
     /**
      * @var string
      */
-    public $certificatePrivatePassword;
-
-    /**
-     * @var string
-     */
     private $urlBase;
 
     /**
@@ -37,8 +32,6 @@ class RequestService
 
         $this->certificatePrivate = config('nfse-ssa.certificado_privado_path');
 
-        $this->certificatePrivatePassword = config('nfse-ssa.certificado_privado_senha');
-
         $context = stream_context_create([
             'ssl' => [
                 // set some SSL/TLS specific options
@@ -52,7 +45,6 @@ class RequestService
             'keep_alive' => true,
             'trace' => true,
             'local_cert' => $this->certificatePrivate,
-            'passphrase' => $this->certificatePrivatePassword,
             'cache_wsdl' => WSDL_CACHE_NONE,
             'stream_context' => $context
         ];

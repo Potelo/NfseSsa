@@ -15,8 +15,6 @@ return [
 
     'certificado_privado_path' => null,
 
-    'certificado_privado_senha' => null,
-
     'certificado_publico_path' => null,
 
 ];
