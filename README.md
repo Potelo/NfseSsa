@@ -92,8 +92,8 @@ class Controller extends BaseController{
         $result = $nfsa->enviarLoteRps([
           'numero_lote' => 1,
           'id' => '001',
-          'cnpj' => '10880435000121',
-          'inscricao_municipal' => '51559500163',
+          'cnpj' => '50453974000107',
+          'inscricao_municipal' => '51515151515',
           'rps' => [
               'id' => 'rpsId001',
               'identificacao' => [
@@ -120,9 +120,9 @@ class Controller extends BaseController{
                  5 - Microempresário Individual (MEI)
                  6 - Microempresário e Empresa de Pequeno Porte
                  (ME EPP) */
-              'optante_simples_nacional' => 1,
-              'incentivador_cultural' => 2,
-              'status' => 1,
+              'optante_simples_nacional' => 1, // 1 - Sim, 2 - Não
+              'incentivador_cultural' => 2, // 1 - Sim, 2 - Não
+              'status' => 1, // 1 - Normal, 2 - Cancelado
               'servico' => [
                   'valores' => [
                       'valor_servicos' => 340.26,
@@ -147,8 +147,8 @@ class Controller extends BaseController{
                   'codigo_municipio' => 2927408,
               ],
               'prestador' => [
-                  'cnpj' => '10880435000121',
-                  'inscricao_municipal' => '51559500163',
+                  'cnpj' => '50453974000107',
+                  'inscricao_municipal' => '51515151515',
               ],
               'tomador' => [
                   'identificacao_tomador' => [
@@ -161,15 +161,15 @@ class Controller extends BaseController{
                   'razao_social' => 'RAZAO SOCIAL DO CLIENTE S/A',
                   'endereco' => [
                       'endereco' => 'R MANOEL DIAS DA SILVA',
-                      'numero' => '999',
+                      'numero' => '1515',
                       'bairro' => 'PITUBA',
-                      'codigo_municipio' => '2927408',
+                      'codigo_municipio' => 2927408,
                       'uf' => 'BA',
                       'cep' => '41000000',
                   ],
                   'contato' => [
-                      'telefone' => '71991891137',
-                      'email' => 'gpensador2@gmai.com'
+                      'telefone' => '71999999999',
+                      'email' => 'email@gmail.com'
                   ]
               ]
           ]
