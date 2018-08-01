@@ -132,7 +132,7 @@ class Controller extends BaseController{
                       'valor_cofins' => 0,
                       'valor_ir' => 0,
                       'valor_csll' => 0,
-                      'iss_retido' => 2,
+                      'iss_retido' => 1, // 1 - Sim, 2 - Não
                       'valor_iss' => 6.81,
                       'valor_iss_retido' => 6.81,
                       'outras_retencoes' => 0,
