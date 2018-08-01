@@ -71,7 +71,8 @@ https://nfse.sefaz.salvador.ba.gov.br/OnLine/Institucional/FaqTecnologia.aspx
 
 ## Emissão do Recibo Provisório de Serviços (RPS)
 
-Para gerar a nota fiscal, precisamos enviar um RPS para a API da Prefeitura. 
+Para gerar a nota fiscal, precisamos enviar um RPS para a API da Prefeitura, que
+uma Nota Fiscal será gerada automaticamente a partir dele. 
 Instanciamos o objeto NfseSsa por injeção de dependência no método do Controller e 
 enviamos o RPS através do método **enviarLoteRps**:
 
@@ -183,5 +184,89 @@ class Controller extends BaseController{
         return $result->getErrors();
     }
   
+}
+```
+Caso seja gerado com sucesso, no método **$result->getData()** vai ter o número
+do protocolo, que será utilizado em outras consultas.
+
+Exemplo de retorno com sucesso:
+```
+{
+  NumeroLote: "1",
+  DataRecebimento: "01/08/2018 17:38:35",
+  Protocolo: "41512"
+}
+```
+Exemplo de retorno com erro:
+```
+[
+  {
+    codigo: "E10",
+    mensagem: "RPS já informado. ",
+    correcao: "Para essa Inscrição Municipal/CNPJ já existe um RPS informado com o mesmo número, série e tipo."
+  }
+]
+```
+
+Obs: No pacote é enviado apenas 1 RPS por Lote.
+
+## Consultas
+
+### Consultar situação do Lote RPS enviado
+
+Consulta através do método **consultarSituacaoLoteRps**
+
+```php
+public function consultarSituacaoLoteRps(NfseSsa $nfsa)
+{
+    $result = $nfsa->consultarSituacaoLoteRps([
+        'prestador' => [
+            'cnpj' => '50453974000107',
+            'inscricao_municipal' => '51515151515'
+        ],
+        'protocolo' => '41111'
+    ]);
+
+    // Sucesso
+    if ($result->getStatus()) {
+        return $result->getData();
+    }
+
+    return $result->getErrors();
+}
+```
+
+Exemplo de retorno com sucesso:
+```
+{
+  NumeroLote: "1",
+  Situacao: "4" // 1 – Não Recebido, 2 – Não Processado, 3 – Processado com Erro, 4 – Processado com Sucesso 
+}
+```
+
+### Consultar Nota Fiscal pelo RPS
+
+Consulta uma Nota Fiscal gerada a partir de um RPS através do método **consultarNfseRps**
+```php
+public function consultarNfseRps(NfseSsa $nfsa)
+{
+    $result = $nfsa->consultarNfseRps([
+        'prestador' => [
+            'cnpj' => '50453974000107',
+            'inscricao_municipal' => '51515151515'
+        ],
+        'identificacao_rps' => [
+            'numero' => 1,
+            'serie' => 'A',
+            'tipo' => 1
+        ]
+    ]);
+
+    // Sucesso
+    if ($result->getStatus()) {
+        return $result->getData();
+    }
+
+    return $result->getErrors();
 }
 ```
