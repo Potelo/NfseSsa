@@ -270,3 +270,28 @@ public function consultarNfseRps(NfseSsa $nfsa)
     return $result->getErrors();
 }
 ```
+
+### Consultar Notas Fiscais
+```php
+public function consultarNfse(NfseSsa $nfsa)
+{
+    $result = $nfsa->consultarNfse([
+        'prestador' => [
+            'cnpj' => '50453974000107',
+            'inscricao_municipal' => '51515151515'
+        ],
+        'numero_nfse' => 1, // opcional
+        'periodo_emissao' => [
+            'data_inicial' => '2018-01-01',
+            'data_final' => '2018-08-01',
+        ]
+    ]);
+
+    // Sucesso
+    if ($result->getStatus()) {
+        return $result->getData();
+    }
+
+    return $result->getErrors();
+}
+```
