@@ -89,7 +89,7 @@ class RequestService
             $response->setStatus(true);
 
             $json = json_encode($xmlObj);
-            $data = json_decode($json,TRUE);
+            $data = json_decode($json,true);
 
             $response->setData($data);
         }
