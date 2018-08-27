@@ -28,7 +28,11 @@ class RequestService
 
     public function __construct()
     {
-        $this->urlBase = 'https://notahml.salvador.ba.gov.br';
+        if (config('nfse-ssa.homologacao') == true) {
+            $this->urlBase = 'https://notahml.salvador.ba.gov.br';
+        } else {
+            $this->urlBase = 'https://nfse.salvador.ba.gov.br';
+        }
 
         $this->certificatePrivate = config('nfse-ssa.certificado_privado_path');
 
