@@ -6,7 +6,7 @@ namespace Potelo\NfseSsa;
  * Classe complementar
  * necessária para a comunicação SOAP
  * Remove algumas tags para adequar a comunicação
- * ao padrão Ruindows utilizado
+ * ao padrão Windows utilizado
  */
 class MySoapClient extends \SoapClient {
 
