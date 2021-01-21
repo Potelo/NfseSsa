@@ -52,7 +52,6 @@ class RequestService
             'cache_wsdl' => WSDL_CACHE_NONE,
             'stream_context' => $context
         ];
-
     }
 
     /**
@@ -62,7 +61,8 @@ class RequestService
      * @param $return
      * @return Response
      */
-    private function consult($wsdlSuffix, $xml, $method, $return){
+    private function consult($wsdlSuffix, $xml, $method, $return)
+    {
         $wsdl = $this->urlBase . $wsdlSuffix;
 
         $client = new MySoapClient($wsdl, $this->soapOptions);
@@ -88,12 +88,11 @@ class RequestService
                 $error->correcao = $arr['Correcao'];
                 $response->addError($error);
             }
-
         } else {
             $response->setStatus(true);
 
             $json = json_encode($xmlObj);
-            $data = json_decode($json,true);
+            $data = json_decode($json, true);
 
             $response->setData($data);
         }
@@ -132,7 +131,8 @@ class RequestService
             $wsdlSuffix,
             $finalXml,
             'EnviarLoteRPS',
-            'EnviarLoteRPSResult');
+            'EnviarLoteRPSResult'
+        );
 
         return $response;
     }
@@ -151,7 +151,8 @@ class RequestService
             $wsdlSuffix,
             $finalXml,
             'ConsultarSituacaoLoteRPS',
-            'ConsultarSituacaoLoteRPSResult');
+            'ConsultarSituacaoLoteRPSResult'
+        );
 
         return $response;
     }
@@ -170,7 +171,8 @@ class RequestService
             $wsdlSuffix,
             $finalXml,
             'ConsultarLoteRPS',
-            'ConsultarLoteRPSResult');
+            'ConsultarLoteRPSResult'
+        );
 
         return $response;
     }
@@ -189,7 +191,8 @@ class RequestService
             $wsdlSuffix,
             $finalXml,
             'ConsultarNfseRPS',
-            'ConsultarNfseRPSResult');
+            'ConsultarNfseRPSResult'
+        );
 
         return $response;
     }
@@ -204,7 +207,8 @@ class RequestService
             $wsdlSuffix,
             $finalXml,
             'ConsultarNfse',
-            'ConsultarNfseResult');
+            'ConsultarNfseResult'
+        );
 
         return $response;
     }

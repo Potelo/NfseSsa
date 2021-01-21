@@ -32,7 +32,7 @@ class SignatureService
      * @return string
      * @throws \Exception
      */
-    public function signXml($xml, $signRoot=true, $tags=[])
+    public function signXml($xml, $signRoot = true, $tags = [])
     {
         // Load the XML to be signed
         $doc = new \DOMDocument();
@@ -57,7 +57,7 @@ class SignatureService
         );
 
         // Create a new (private) Security key
-        $objKey = new XMLSecurityKey(XMLSecurityKey::RSA_SHA1, array('type'=>'private'));
+        $objKey = new XMLSecurityKey(XMLSecurityKey::RSA_SHA1, array('type' => 'private'));
 
         // Load the private key
         $objKey->loadKey($this->certificatePrivate, TRUE);
@@ -83,7 +83,5 @@ class SignatureService
 
         // The signed XML
         return $doc->saveXML();
-
-
     }
 }

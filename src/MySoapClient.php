@@ -8,10 +8,13 @@ namespace Potelo\NfseSsa;
  * Remove algumas tags para adequar a comunicação
  * ao padrão Windows utilizado
  */
-class MySoapClient extends \SoapClient {
+class MySoapClient extends \SoapClient
+{
 
     public $soapRequest;
-    public function __doRequest($request, $location, $action, $version, $one_way = 0) {
+
+    public function __doRequest($request, $location, $action, $version, $one_way = 0)
+    {
 
         $request = str_replace('xmlns:ns2="<anyXML>"', '', $request);
         $request = str_replace(':ns1', '', $request);
@@ -27,7 +30,8 @@ class MySoapClient extends \SoapClient {
         return (parent::__doRequest($request, $location, $action, $version));
     }
 
-    function sanitizeOutput($buffer) {
+    function sanitizeOutput($buffer)
+    {
 
         $search = array(
             '/\>[^\S ]+/s',     // strip whitespaces after tags, except space
@@ -47,5 +51,4 @@ class MySoapClient extends \SoapClient {
 
         return $buffer;
     }
-
-} //fim da classe NFSeSOAPClient
+}
