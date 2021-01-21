@@ -13,9 +13,9 @@ class NfseSsaServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->publishes([ __DIR__ . '/config/nfse-ssa.php' => config_path('nfse-ssa.php')]);
+        $this->publishes([__DIR__ . '/config/nfse-ssa.php' => config_path('nfse-ssa.php')]);
 
-        $this->loadViewsFrom(__DIR__.'/templates', 'nfse-ssa');
+        $this->loadViewsFrom(__DIR__ . '/templates', 'nfse-ssa');
     }
 
     /**
@@ -26,7 +26,8 @@ class NfseSsaServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/config/nfse-ssa.php', 'nfse-ssa'
+            __DIR__ . '/config/nfse-ssa.php',
+            'nfse-ssa'
         );
     }
 }

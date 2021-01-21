@@ -97,5 +97,4 @@ class NfseSsa
 
         return $result;
     }
-
 }
