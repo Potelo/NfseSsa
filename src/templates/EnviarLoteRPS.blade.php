@@ -40,10 +40,11 @@
 
                         {!! array_xml_get($dados['rps']['servico'], 'codigo_cnae') !!}
 
+                        {!! array_xml_get($dados['rps']['servico'], 'codigo_tributacao_municipio') !!}
+
                         {!! array_xml_get($dados['rps']['servico'], 'discriminacao') !!}
 
                         {!! array_xml_get($dados['rps']['servico'], 'codigo_municipio') !!}
-
                     </Servico>
                     <Prestador>
                         {!! array_xml_get($dados['rps']['prestador'], 'cnpj') !!}

@@ -146,6 +146,7 @@ class Controller extends BaseController{
                   'codigo_cnae' => 6622300,
                   'discriminacao' => 'vendas de seguro',
                   'codigo_municipio' => 2927408,
+                  'codigo_tributacao_municipio' => '0103001'
               ],
               'prestador' => [
                   'cnpj' => '50453974000107',
