@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Str;
+
 if (!function_exists('xml_view')) {
 
     /**
@@ -43,8 +45,8 @@ if (!function_exists('array_xml_get')) {
     function array_xml_get($array, $key)
     {
         if ($value = array_get($array, $key)) {
-            $xmlTag = "<" . studly_case($key) . ">";
-            $xmlCloseTag = "</" . studly_case($key) . ">";
+            $xmlTag = "<" . Str::studly($key) . ">";
+            $xmlCloseTag = "</" . Str::studly($key) . ">";
 
             return $xmlTag . $value . $xmlCloseTag;
         }
