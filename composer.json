@@ -14,7 +14,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Potelo\\NfseSsa\\": "src/"
+            "Congenialbr\\NfseSsa\\": "src/"
         },
         "files": [
             "src/helpers.php"
@@ -23,7 +23,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Potelo\\NfseSsa\\NfseSsaServiceProvider"
+                "Congenialbr\\NfseSsa\\NfseSsaServiceProvider"
             ]
         }
     },

@@ -1,9 +1,9 @@
 <?php
 
-namespace Potelo\NfseSsa;
+namespace Congenialbr\NfseSsa;
 
-use Potelo\NfseSsa\Services\RequestService;
-use Potelo\NfseSsa\Services\SignatureService;
+use Congenialbr\NfseSsa\Services\RequestService;
+use Congenialbr\NfseSsa\Services\SignatureService;
 
 class NfseSsa
 {

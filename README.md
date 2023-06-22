@@ -82,7 +82,7 @@ enviamos o RPS através do método **enviarLoteRps**:
 namespace App\Http\Controllers;
 
 use Illuminate\Routing\Controller as BaseController;
-use Potelo\NfseSsa\NfseSsa;
+use Congenialbr\NfseSsa\NfseSsa;
 
 class Controller extends BaseController{
   

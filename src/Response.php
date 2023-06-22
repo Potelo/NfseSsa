@@ -1,6 +1,6 @@
 <?php
 
-namespace Potelo\NfseSsa;
+namespace congenialbr\NfseSsa;
 
 
 class Response

@@ -1,11 +1,11 @@
 <?php
 
-namespace Potelo\NfseSsa\Services;
+namespace Congenialbr\NfseSsa\Services;
 
 
-use Potelo\NfseSsa\MySoapClient;
-use Potelo\NfseSsa\Request\Error;
-use Potelo\NfseSsa\Request\Response;
+use Congenialbr\NfseSsa\MySoapClient;
+use Congenialbr\NfseSsa\Request\Error;
+use Congenialbr\NfseSsa\Request\Response;
 
 class RequestService
 {
