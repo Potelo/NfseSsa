@@ -45,6 +45,12 @@
                         {!! array_xml_get($dados['rps']['servico'], 'discriminacao') !!}
 
                         {!! array_xml_get($dados['rps']['servico'], 'codigo_municipio') !!}
+
+                        {!! array_xml_get($dados['rps']['servico'], 'nbs', 'NBS') !!}
+
+                        {!! array_xml_get($dados['rps']['servico'], 'c_class_trib', 'cClassTrib') !!}
+
+                        {!! array_xml_get($dados['rps']['servico'], 'indop', 'INDOP') !!}
                     </Servico>
                     <Prestador>
                         {!! array_xml_get($dados['rps']['prestador'], 'cnpj') !!}
