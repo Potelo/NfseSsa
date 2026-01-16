@@ -110,7 +110,6 @@ class NfseSsa
     {
         $xml = xml_view('ConsultarNfts', $dados);
         $signedXml = $this->signatureService->signXml($xml);
-        
         $result = $this->requestService->consultarNfts($signedXml);
 
         return $result;
