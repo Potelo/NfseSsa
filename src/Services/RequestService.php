@@ -212,4 +212,47 @@ class RequestService
 
         return $response;
     }
+
+    /**
+     * Gera o corpo do XML específico para o WebService de NFTS (Namespace diferente)
+     *
+     * @param $xml
+     * @param $mainTagName
+     * @param $subTagName
+     * @return string
+     */
+    private function generateNftsXmlBody($xml, $mainTagName, $subTagName)
+    {
+        return "
+            <$mainTagName xmlns='https://nfse.salvador.ba.gov.br/nfts'>
+                <$subTagName>
+                  <![CDATA[$xml]]>
+                </$subTagName>
+            </$mainTagName>
+        ";
+    }
+
+    /**
+     * Consulta NFTS (Nota do Tomador)
+     *
+     * @param $xml
+     * @return Response
+     */
+    public function consultarNfts($xml)
+    {
+        $wsdlSuffix = '/ws/LoteNFTS.asmx?WSDL';
+
+        $methodName = 'ConsultaNFTS';
+
+        $finalXml = $this->generateNftsXmlBody($xml, 'ConsultaNFTSRequest', 'MensagemXML');
+
+        $response = $this->consult(
+            $wsdlSuffix,
+            $finalXml,
+            $methodName,
+            'RetornoXML'
+        );
+
+        return $response;
+    }
 }

@@ -97,4 +97,22 @@ class NfseSsa
 
         return $result;
     }
+
+    /**
+     * Consulta NFTS (Nota do Tomador)
+     * Requer assinatura digital conforme Manual NFTS pág. 33
+     *
+     * @param $dados
+     * @return mixed
+     * @throws \Throwable
+     */
+    public function consultarNfts($dados)
+    {
+        $xml = xml_view('ConsultarNfts', $dados);
+        $signedXml = $this->signatureService->signXml($xml);
+        
+        $result = $this->requestService->consultarNfts($signedXml);
+
+        return $result;
+    }
 }
