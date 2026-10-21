@@ -13,7 +13,10 @@ class MySoapClient extends \SoapClient
 
     public $soapRequest;
 
-    public function __doRequest($request, $location, $action, $version, $one_way = 0)
+    /**
+     * O $uriParserClass entra no PHP 8.5; aceitá-lo mantém a assinatura compatível com o SoapClient do 8.4 e do 8.5.
+     */
+    public function __doRequest($request, $location, $action, $version, $one_way = 0, $uriParserClass = null): ?string
     {
 
         $request = str_replace('xmlns:ns2="<anyXML>"', '', $request);
